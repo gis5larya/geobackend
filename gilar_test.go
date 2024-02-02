@@ -8,7 +8,7 @@ import (
 // var privatekey = ""
 // var publickey = ""
 // var encode = ""
-// var dbname = "gis"
+//  var dbname = "petalar"
 // var collname = "petalar"
 
 // func TestGeoIntersects(t *testing.T) {
@@ -18,7 +18,7 @@ import (
 // 			103.60768133536988, -1.628526295003084,
 // 		},
 // 	}
-// 	datagedung := GeoIntersects(mconn, collname, coordinates)
+// 	datagedung := GeoIntersects(mconn, "petalaryak", coordinates)
 // 	fmt.Println(datagedung)
 // }
 
@@ -35,40 +35,40 @@ import (
 // 			},
 // 		},
 // 	}
-// 	datagedung := GeoWithin(mconn, collname, coordinates)
+// 	datagedung := GeoWithin(mconn, "petalaryak", coordinates)
 // 	fmt.Println(datagedung)
 // }
 
-func TestNear(t *testing.T) {
-	mconn := SetConnection2dsphere("MONGOSTRING", "petalar", "petalarnew")
-	coordinates := Point{
-		Coordinates: []float64{
-			107.29589918959925, -6.329130142705225,
-		},
-	}
-	datagedung := Near(mconn, "petalarnew", coordinates)
-	fmt.Println(datagedung)
-}
-
-// func TestNearSphere(t *testing.T) {
-// 	mconn := SetConnection("MONGOSTRING", "geojson")
+// func TestNear(t *testing.T) {
+// 	mconn := SetConnection2dsphere("MONGOSTRING", "petalar", "petalarnew")
 // 	coordinates := Point{
 // 		Coordinates: []float64{
-// 			95.30987654321098, 5.556789012345678,
+// 			107.29589918959925, -6.329130142705225,
 // 		},
 // 	}
-// 	datagedung := NearSphere(mconn, "bandaaceh", coordinates)
+// 	datagedung := Near(mconn, "petalarnew", coordinates)
+// 	fmt.Println(datagedung)
+// }
+
+// func TestNearSphere(t *testing.T) {
+// 	mconn := SetConnection("MONGOSTRING", "petalar")
+// 	coordinates := Point{
+// 		Coordinates: []float64{
+// 			107.29589918959925, -6.329130142705225,
+// 		},
+// 	}
+// 	datagedung := NearSphere(mconn, "petalara", coordinates)
 // 	fmt.Println(datagedung)
 // }
 
 // func TestBox(t *testing.T) {
-// 	mconn := SetConnection("MONGOSTRING", "geojson")
+// 	mconn := SetConnection("MONGOSTRING", "petalarnew")
 // 	coordinates := Polyline{
 // 		Coordinates: [][]float64{
 // 			{95.32345678901234, 5.567890123456789},
 // 			{95.32355678901234, 5.567990123456789},
 // 		},
 // 	}
-// 	datagedung := Box(mconn, collname, coordinates)
+// 	datagedung := Box(mconn, "petalarnew", coordinates)
 // 	fmt.Println(datagedung)
 // }
