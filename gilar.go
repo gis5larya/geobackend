@@ -104,13 +104,11 @@ func AmbilDataGeojson(mongoenv, dbname, collname string, r *http.Request) string
 //		return ReturnStruct(response)
 //	}
 func PostGeoIntersects(mongoenv, dbname, collname string, r *http.Request) string {
-	var coordinates Polygon
 	var geospatial models.Geospatial
 	var response Pesan
 	response.Status = false
 	mconn := SetConnection(mongoenv, dbname)
 
-	err := json.NewDecoder(r.Body).Decode(&coordinates)
 	err := json.NewDecoder(r.Body).Decode(&geospatial)
 
 	if err != nil {
@@ -128,7 +126,6 @@ func PostGeoIntersects(mongoenv, dbname, collname string, r *http.Request) strin
 	result := ReturnString(geointersects)
 
 	response.Status = true
-	response.Message = GeoIntersects(mconn, collname, coordinates)
 	response.Message = result
 
 	return ReturnStruct(response)
