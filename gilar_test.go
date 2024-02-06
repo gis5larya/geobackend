@@ -11,31 +11,37 @@ import (
 //  var dbname = "petalar"
 // var collname = "petalar"
 
-// func TestGeoIntersects(t *testing.T) {
-// 	mconn := SetConnection("MONGOSTRING", dbname)
-// 	coordinates := Point{
-// 		Coordinates: []float64{
-// 			103.60768133536988, -1.628526295003084,
-// 		},
-// 	}
-// 	datagedung := GeoIntersects(mconn, "petalaryak", coordinates)
-// 	fmt.Println(datagedung)
-// }
+func TestGeoIntersects(t *testing.T) {
+	mconn := SetConnection("MONGOSTRING", "petalar")
+	coordinates := Polygon{
+		Coordinates: [][][]float64{
+			{
+				{107.2945485891317, -6.3274172711820285},
+				{107.29456548761118, -6.327547436591658},
+				{107.29461618304731, -6.327544637336743},
+				{107.29464012255858, -6.327414471925223},
+				{107.2945485891317, -6.3274172711820285},
+			},
+		},
+	}
+	datagedung := GeoWithin(mconn, "petalara", coordinates)
+	fmt.Println(datagedung)
+}
 
 // func TestGeoWithin(t *testing.T) {
-// 	mconn := SetConnection("MONGOSTRING", dbname)
+// 	mconn := SetConnection("MONGOSTRING", "petalar")
 // 	coordinates := Polygon{
 // 		Coordinates: [][][]float64{
 // 			{
-// 				{95.31123456789012, 5.553210987654321},
-// 				{95.31133456789011, 5.553210987654321},
-// 				{95.31133456789011, 5.553310987654321},
-// 				{95.31123456789012, 5.553310987654321},
-// 				{95.31123456789012, 5.553210987654321},
+// 				{107.2945485891317, -6.3274172711820285},
+// 				{107.29456548761118, -6.327547436591658},
+// 				{107.29461618304731, -6.327544637336743},
+// 				{107.29464012255858, -6.327414471925223},
+// 				{107.2945485891317, -6.3274172711820285},
 // 			},
 // 		},
 // 	}
-// 	datagedung := GeoWithin(mconn, "petalaryak", coordinates)
+// 	datagedung := GeoWithin(mconn, "petalara", coordinates)
 // 	fmt.Println(datagedung)
 // }
 

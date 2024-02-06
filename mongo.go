@@ -191,7 +191,7 @@ func GetGeoIntersectsDoc(db *mongo.Database, collname string, coordinates Polygo
 	result = strings.Join(names, ", ")
 
 	if result != "" {
-		return "Koordinatnya bersinggungan dengan " + result
+		return "Koordinat anda bersinggungan dengan " + result
 	} else {
 		return "Tidak ada data yang bersinggungan"
 	}
