@@ -24,7 +24,7 @@ func TestGeoIntersects(t *testing.T) {
 			},
 		},
 	}
-	datagedung := GeoWithin(mconn, "petalara", coordinates)
+	datagedung := GeoWithin(mconn, "petalarnew", coordinates)
 	fmt.Println(datagedung)
 }
 

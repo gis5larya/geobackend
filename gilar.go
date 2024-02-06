@@ -3,11 +3,22 @@ package geobackend
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
+
+	"github.com/Befous/BackendGin/models"
 )
 
 func ReturnStruct(DataStuct any) string {
 	jsondata, _ := json.Marshal(DataStuct)
 	return string(jsondata)
+}
+func ReturnString(geojson []FullGeoJson) string {
+	var names []string
+	for _, geojson := range geojson {
+		names = append(names, geojson.Properties.Name)
+	}
+	result := strings.Join(names, ", ")
+	return result
 }
 
 // ---------------------------------------------------------------------- Geojson ----------------------------------------------------------------------
@@ -75,21 +86,51 @@ func AmbilDataGeojson(mongoenv, dbname, collname string, r *http.Request) string
 	return ReturnStruct(datagedung)
 }
 
+// func PostGeoIntersects(mongoenv, dbname, collname string, r *http.Request) string {
+// 	var coordinate Polygon
+// 	var response Pesan
+// 	response.Status = false
+// 	mconn := SetConnection(mongoenv, dbname)
+
+// 	err := json.NewDecoder(r.Body).Decode(&coordinate)
+
+// 	if err != nil {
+// 		response.Message = "Error parsing application/json: " + err.Error()
+// 		return ReturnStruct(response)
+// 	}
+
+//		response.Status = true
+//		response.Message = GeoIntersects(mconn, collname, coordinate)
+//		return ReturnStruct(response)
+//	}
 func PostGeoIntersects(mongoenv, dbname, collname string, r *http.Request) string {
-	var coordinate Polygon
+	var coordinates Polygon
+	var geospatial models.Geospatial
 	var response Pesan
 	response.Status = false
 	mconn := SetConnection(mongoenv, dbname)
 
-	err := json.NewDecoder(r.Body).Decode(&coordinate)
+	err := json.NewDecoder(r.Body).Decode(&coordinates)
+	err := json.NewDecoder(r.Body).Decode(&geospatial)
 
 	if err != nil {
 		response.Message = "Error parsing application/json: " + err.Error()
 		return ReturnStruct(response)
 	}
 
+	geointersects, err := GeoIntersects(mconn, collname, geospatial)
+
+	if err != nil {
+		response.Message = "Error : " + err.Error()
+		return ReturnStruct(response)
+	}
+
+	result := ReturnString(geointersects)
+
 	response.Status = true
-	response.Message = GeoIntersects(mconn, collname, coordinate)
+	response.Message = GeoIntersects(mconn, collname, coordinates)
+	response.Message = result
+
 	return ReturnStruct(response)
 }
 
