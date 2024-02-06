@@ -1,6 +1,6 @@
 module github.com/gis5larya/geobackend
 
-go 1.21.4
+go 1.21.6
 
 require go.mongodb.org/mongo-driver v1.13.1
 
