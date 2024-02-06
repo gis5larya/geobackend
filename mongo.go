@@ -146,12 +146,12 @@ func DocExists[T any](db *mongo.Database, collname string, filter bson.M, doc T)
 	return err == nil
 }
 
-func GetGeoIntersectsDoc(db *mongo.Database, collname string, coordinates Point) (result string) {
+func GetGeoIntersectsDoc(db *mongo.Database, collname string, coordinates Polygon) (result string) {
 	filter := bson.M{
 		"geometry": bson.M{
 			"$geoIntersects": bson.M{
 				"$geometry": bson.M{
-					"type":        "Point",
+					"type":        "Polygon",
 					"coordinates": coordinates.Coordinates,
 				},
 			},
@@ -162,7 +162,7 @@ func GetGeoIntersectsDoc(db *mongo.Database, collname string, coordinates Point)
 	if err != nil {
 		fmt.Printf("GeoIntersects: %v\n", err)
 	}
-	return "Koordinat anda bersinggungan dengan " + doc.Properties.Name
+	return "Koordinatnya bersinggungan dengan " + doc.Properties.Name
 }
 
 func GetGeoWithinDoc(db *mongo.Database, collname string, coordinates Polygon) (result string) {
